@@ -3,17 +3,19 @@ import Sidebar from "./components/layout/Sidebar";
 import DashboardPage from "./pages/DashboardPage";
 import POS from "./components/layout/Pos";
 import Login from "./pages/Login";
+import Reports from "./pages/Reports";
 
 function DashboardLayout() {
   
   return (
-    <div className="flex  overflow-hidden">
+    <div className="flex h-full">
       <Sidebar />
-      <main className="flex-1 bg-gray-50 min-h-screen">
+       <main className="flex-1 bg-gray-50 overflow-y-auto">
         <Routes>
           <Route path="/dashboard" element={<DashboardPage />} />
           <Route path="/pos" element={<POS />} />
           <Route path="/inventory" element={<h1>Inventory Page</h1>} />
+           <Route path="/reports" element={<Reports />} />
           <Route path="*" element={<div className="p-6">Page Not Found</div>} />
         </Routes>
       </main>
