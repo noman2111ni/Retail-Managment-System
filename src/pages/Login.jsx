@@ -8,7 +8,11 @@ const Login = () => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
+
     try {
+      // ✅ LocalStorage clear before new login
+      localStorage.clear();
+
       // 🔹 Step 1: Token API call
       const response = await fetch("https://retailm.pythonanywhere.com/api/token/", {
         method: "POST",
@@ -16,55 +20,32 @@ const Login = () => {
         body: JSON.stringify({ username, password }),
       });
 
+      console.log("Login status:", response.status); // 👀 Debug
+      const data = await response.json();
+      console.log("Login response data:", data); // 👀 Debug
+
       if (!response.ok) {
-        const errorData = await response.json();
-        alert(errorData.detail || "Login failed!");
+        alert(data.detail || "Login failed!");
         return;
       }
 
-      const data = await response.json();
       const { access, refresh } = data;
 
       if (access && refresh) {
-        // Save tokens
+        // ✅ Save tokens
         localStorage.setItem("accessToken", access);
         localStorage.setItem("refreshToken", refresh);
 
-        let currentUser = null;
+        // (Optional) Save user info if API provides
+        localStorage.setItem("user", JSON.stringify({ username }));
 
-        // 🔹 Step 2a: Try to fetch current user from /me/
-        const meRes = await fetch("https://retailm.pythonanywhere.com/api/users/me/", {
-          method: "GET",
-          headers: { Authorization: `Bearer ${access}` },
-        });
-
-        if (meRes.ok) {
-          currentUser = await meRes.json();
-        } else {
-          // 🔹 Step 2b: If /me/ not available, fallback to /users/
-          const userRes = await fetch("https://retailm.pythonanywhere.com/api/users/", {
-            method: "GET",
-            headers: { Authorization: `Bearer ${access}` },
-          });
-
-          if (userRes.ok) {
-            const users = await userRes.json();
-            currentUser = users.find((u) => u.username === username) || null;
-          }
-        }
-
-        if (currentUser) {
-          localStorage.setItem("user", JSON.stringify(currentUser));
-          console.log("Logged-in User:", currentUser);
-          navigate("/"); // dashboard
-        } else {
-          alert("Failed to identify current user");
-        }
+        console.log("✅ Logged-in user:", username);
+        navigate("/"); // dashboard
       } else {
         alert("Login failed!");
       }
     } catch (err) {
-      console.error(err);
+      console.error("❌ Login error:", err);
       alert("An error occurred. Please try again.");
     }
   };
