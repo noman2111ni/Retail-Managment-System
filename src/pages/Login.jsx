@@ -11,18 +11,18 @@ const Login = () => {
 
     try {
       // ✅ LocalStorage clear before new login
-      localStorage.clear();
-
-      // 🔹 Step 1: Token API call
       const response = await fetch("https://retailm.pythonanywhere.com/api/token/", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ username, password }),
+        body: JSON.stringify({
+          username,
+          password,
+        }),
       });
 
-      console.log("Login status:", response.status); // 👀 Debug
+      console.log("Login status:", response.status);
       const data = await response.json();
-      console.log("Login response data:", data); // 👀 Debug
+      console.log("Login response data:", data);
 
       if (!response.ok) {
         alert(data.detail || "Login failed!");
@@ -32,11 +32,8 @@ const Login = () => {
       const { access, refresh } = data;
 
       if (access && refresh) {
-        // ✅ Save tokens
         localStorage.setItem("accessToken", access);
         localStorage.setItem("refreshToken", refresh);
-
-        // (Optional) Save user info if API provides
         localStorage.setItem("user", JSON.stringify({ username }));
 
         console.log("✅ Logged-in user:", username);
@@ -51,12 +48,12 @@ const Login = () => {
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gradient-to-r from-blue-100 to-blue-200">
+    <div className="flex justify-center items-center min-h-screen bg-gradient-to-r from-yellow-100 to-yellow-100">
       <form
         onSubmit={handleLogin}
         className="bg-white p-8 rounded-2xl shadow-2xl w-96 space-y-6"
       >
-        <h2 className="text-3xl font-bold text-center text-blue-700">
+        <h2 className="text-3xl font-bold text-center text-yellow-700">
           Welcome Back 👋
         </h2>
         <p className="text-gray-500 text-center">
@@ -74,7 +71,7 @@ const Login = () => {
             onChange={(e) => setUsername(e.target.value)}
             placeholder="Enter username"
             required
-            className="mt-1 text-gray-500 border border-gray-300 p-2 rounded-lg w-full focus:ring-2 focus:ring-blue-400 outline-none"
+            className="mt-1 text-gray-600 border border-gray-300 p-2 rounded-lg w-full focus:ring-2 focus:ring-yellow-400 outline-none"
           />
         </div>
 
@@ -89,33 +86,18 @@ const Login = () => {
             onChange={(e) => setPassword(e.target.value)}
             placeholder="Enter password"
             required
-            className="mt-1 border text-gray-500 border-gray-300 p-2 rounded-lg w-full focus:ring-2 focus:ring-blue-400 outline-none"
+            className="mt-1 border text-gray-600 border-gray-300 p-2 rounded-lg w-full focus:ring-2 focus:ring-yellow-400 outline-none"
           />
         </div>
 
         {/* Login Button */}
         <button
           type="submit"
-          className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg font-semibold transition duration-300"
+          className="w-full bg-yellow-500 hover:bg-yellow-600 text-white py-2 rounded-lg font-semibold transition duration-300"
         >
           Login
         </button>
-
-        {/* Divider */}
-        <div className="flex items-center gap-2">
-          <span className="h-px bg-gray-300 flex-1"></span>
-          <span className="text-gray-400 text-sm">OR</span>
-          <span className="h-px bg-gray-300 flex-1"></span>
-        </div>
-
-        {/* Signup Button */}
-        <button
-          type="button"
-          onClick={() => navigate("/signup")}
-          className="w-full border border-blue-600 text-blue-600 py-2 rounded-lg font-semibold hover:bg-blue-50 transition duration-300"
-        >
-          Create an Account
-        </button>
+      
       </form>
     </div>
   );

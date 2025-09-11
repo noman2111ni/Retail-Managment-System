@@ -68,8 +68,8 @@ const ProductForm = ({ product = null }) => {
   const crosshandle = () => navigate("/pos");
 
   return (
-<div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4">
-  <div className="w-full max-w-lg bg-white dark:bg-gray-900 rounded-xl shadow-xl relative overflow-y-auto overflow-x-hidden max-h-[90vh] p-8 scrollbar-none">
+    <div className="fixed inset-0 z-50 flex items-center justify-center  backdrop-blur p-4">
+      <div className="w-full max-w-lg bg-white dark:bg-gray-900  shadow-xl relative overflow-y-auto overflow-x-hidden max-h-[90vh] p-8 scrollbar-none  border border-gray-200 dark:border-gray-700 p-4 rounded-lg">
         <RxCross1
           onClick={crosshandle}
           className="absolute top-5 right-5 text-gray-500 hover:text-gray-700 cursor-pointer transition"

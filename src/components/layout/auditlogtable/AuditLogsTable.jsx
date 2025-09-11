@@ -165,7 +165,7 @@ const AuditLogsTable = () => {
                   >
                     <td className="px-6 py-4">{log.id}</td>
                     <td className="px-6 py-4 font-medium text-gray-800 dark:text-gray-200">
-                      {log.username || "Deleted User"}
+                      {log.user_name || "Deleted User"}
                     </td>
                     <td className="px-6 py-4 capitalize">{log.action}</td>
                     <td className="px-6 py-4">{log.model_name}</td>

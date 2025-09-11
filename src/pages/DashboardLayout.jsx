@@ -15,6 +15,12 @@ import ProductForm from "@/components/layout/Products/FormProduct";
 import ProductUpdate from "@/components/layout/Products/ProductUpdate";
 import AuditLogsTable from "@/components/layout/auditlogtable/AuditLogsTable";
 import SaleForm from "@/components/layout/Sales/SaleForm";
+import BranchStock from "./branchStock/BranchStock";
+import VendorPurchasePage from "./VendorPurchasePage";
+import AddVendor from "@/components/layout/vendors/AddVendor";
+import PurchaseForm from "@/components/layout/vendors/PurchaseForm";
+import LedgerTable from "@/components/layout/LedgerEntry/LedgerTable";
+import PurchasePage from "@/components/layout/Purchase/PurchasePage";
 function DashboardLayout() {
   return (
     <div className="flex  h-full">
@@ -29,10 +35,11 @@ function DashboardLayout() {
             <Route path="add-branch" element={<AddBranches />} />
 
           </Route>
-          <Route path="/saleFrom/:id" element={<SaleForm />} />
 
           <Route path="updateproduct/:id" element={<ProductUpdate />} />
           <Route path="/sales" element={<SalesPage />} />
+          <Route path="/saleFrom/:id" element={<SaleForm />} />
+          <Route path="/purchases" element={<PurchasePage />} />
           <Route path="orders" element={<OrdersPage />}>
             <Route path="new" element={<AddOrderPage />} />
           </Route>
@@ -41,6 +48,11 @@ function DashboardLayout() {
           <Route path="/branches/update-branch/:id" element={<UpdateBranch />} />
           <Route path="/login" element={<Login />} />
           <Route path="/auditlog" element={<AuditLogsTable />} />
+          <Route path="/branch-stock" element={<BranchStock />} />
+          <Route path="/vendors" element={<VendorPurchasePage />} />
+          <Route path="/vendors-add" element={<AddVendor />} />
+          <Route path="/vendor-purchases/:vendorId" element={<PurchaseForm />} />
+          <Route path="/ledger" element={<LedgerTable />} />
           <Route path="*" element={<div className="p-6">Page Not Found</div>} />
         </Routes>
 

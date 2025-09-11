@@ -1,3 +1,4 @@
+// store/newproductSlice.js
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { setTokens } from "./slices/authSlice";
@@ -5,7 +6,6 @@ import { setTokens } from "./slices/authSlice";
 const API_URL = "https://retailm.pythonanywhere.com/api/products/";
 const REFRESH_URL = "https://retailm.pythonanywhere.com/api/token/refresh/";
 
-// Utility function to handle token refresh automatically
 const withAuth = async (requestFn, { getState, dispatch, rejectWithValue }) => {
   let { accessToken, refreshToken } = getState().auth;
 
@@ -53,7 +53,7 @@ export const deletenewProduct = createAsyncThunk(
     await withAuth(
       (token) => axios.delete(`${API_URL}${id}/`, { headers: { Authorization: `Bearer ${token}` } }),
       helpers
-    ).then(() => id) // return deleted product id
+    ).then(() => id)
 );
 
 // Update product
@@ -68,70 +68,33 @@ export const updatenewProduct = createAsyncThunk(
 
 const productSlice = createSlice({
   name: "newProducts",
-  initialState: {
-    data: [],
-    loading: false,
-    error: null,
-  },
+  initialState: { data: [], loading: false, error: null },
   reducers: {},
   extraReducers: (builder) => {
     builder
       // Fetch
-      .addCase(fetchnewProducts.pending, (state) => {
-        state.loading = true;
-        state.error = null;
-      })
-      .addCase(fetchnewProducts.fulfilled, (state, action) => {
-        state.loading = false;
-        state.data = action.payload || [];
-      })
-      .addCase(fetchnewProducts.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action.payload;
-      })
+      .addCase(fetchnewProducts.pending, (state) => { state.loading = true; state.error = null; })
+      .addCase(fetchnewProducts.fulfilled, (state, action) => { state.loading = false; state.data = action.payload || []; })
+      .addCase(fetchnewProducts.rejected, (state, action) => { state.loading = false; state.error = action.payload; })
 
       // Add
-      .addCase(addnewProduct.pending, (state) => {
-        state.loading = true;
-        state.error = null;
-      })
-      .addCase(addnewProduct.fulfilled, (state, action) => {
-        state.loading = false;
-        state.data.push(action.payload);
-      })
-      .addCase(addnewProduct.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action.payload;
-      })
+      .addCase(addnewProduct.pending, (state) => { state.loading = true; state.error = null; })
+      .addCase(addnewProduct.fulfilled, (state, action) => { state.loading = false; state.data.push(action.payload); })
+      .addCase(addnewProduct.rejected, (state, action) => { state.loading = false; state.error = action.payload; })
 
       // Delete
-      .addCase(deletenewProduct.pending, (state) => {
-        state.loading = true;
-        state.error = null;
-      })
-      .addCase(deletenewProduct.fulfilled, (state, action) => {
-        state.loading = false;
-        state.data = state.data.filter((p) => p.id !== action.payload);
-      })
-      .addCase(deletenewProduct.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action.payload;
-      })
+      .addCase(deletenewProduct.pending, (state) => { state.loading = true; state.error = null; })
+      .addCase(deletenewProduct.fulfilled, (state, action) => { state.loading = false; state.data = state.data.filter((p) => p.id !== action.payload); })
+      .addCase(deletenewProduct.rejected, (state, action) => { state.loading = false; state.error = action.payload; })
 
       // Update
-      .addCase(updatenewProduct.pending, (state) => {
-        state.loading = true;
-        state.error = null;
-      })
+      .addCase(updatenewProduct.pending, (state) => { state.loading = true; state.error = null; })
       .addCase(updatenewProduct.fulfilled, (state, action) => {
         state.loading = false;
         const index = state.data.findIndex((p) => p.id === action.payload.id);
         if (index !== -1) state.data[index] = action.payload;
       })
-      .addCase(updatenewProduct.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action.payload;
-      });
+      .addCase(updatenewProduct.rejected, (state, action) => { state.loading = false; state.error = action.payload; });
   },
 });
 

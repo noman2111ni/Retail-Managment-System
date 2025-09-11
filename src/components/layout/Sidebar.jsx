@@ -3,8 +3,6 @@ import { Link, useLocation } from "react-router-dom";
 import {
   Home,
   ShoppingCart,
-  Package,
-  Users,
   FileText,
   BarChart,
   Settings,
@@ -12,6 +10,7 @@ import {
   X,
   ClipboardList,
   Building2,
+  Warehouse,
 } from "lucide-react";
 
 export default function Sidebar() {
@@ -21,32 +20,34 @@ export default function Sidebar() {
   const navItems = [
     { name: "Dashboard", path: "/", icon: Home },
     { name: "POS", path: "/pos", icon: ShoppingCart },
-    { name: "Inventory", path: "/inventory", icon: Package },
-    { name: "Orders", path: "/orders", icon: ClipboardList },
-    { name: "Customers", path: "/customers", icon: Users },
-    { name: "Reports", path: "/reports", icon: FileText },
-    { name: "Sales", path: "/sales", icon: BarChart },
     { name: "AuditLog", path: "/auditlog", icon: Building2 },
     { name: "Branches", path: "/branches", icon: Settings },
+    { name: "Ledger", path: "/ledger", icon: FileText },
+    { name: "Vendors", path: "/vendors", icon: ClipboardList },
+    { name: "Sales", path: "/sales", icon: BarChart },
+    { name: "Purchases", path: "/purchases", icon: FileText },
+    { name: "Stock Movement", path: "/branch-stock", icon: Warehouse },
   ];
 
   return (
-    <div className="flex border-r  border-gray-200 dark:border-gray-700 relative">
+    <div className="relative">
       {/* Sidebar */}
       <aside
-        className={`bg-white dark:bg-gray-900 dark:text-white text-gray-900 
-          min-h-screen   shadow-md
-          ${isOpen ? "w-55" : "w-20"}
+        className={`bg-white dark:bg-gray-900 h-full dark:text-white text-gray-900 
+          min-h-screen transition-all duration-100 dark:duration-0 dark:transition-none border-r border-gray-200 dark:border-gray-800
+          ${isOpen ? "w-56" : "w-20"} hidden md:block
         `}
       >
         {/* Header */}
-        <div className="flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-800">
+        <div className="flex items-center justify-between py-4 px-4 border-b border-gray-200 dark:border-gray-800">
           {isOpen && (
             <div className="flex items-center gap-2">
               <ShoppingCart size={28} className="text-yellow-500" />
               <h1 className="text-xl font-bold">
                 <span className="text-gray-800 dark:text-gray-200">Retail</span>
-                <span className="text-yellow-500 ">MS</span>
+                <span className="bg-gradient-to-r from-yellow-400 via-yellow-500 to-yellow-600 bg-clip-text text-transparent">
+                  MS
+                </span>
               </h1>
             </div>
           )}
@@ -64,19 +65,33 @@ export default function Sidebar() {
             const Icon = item.icon;
             const active = pathname === item.path;
             return (
-              <Link
-                key={item.path}
-                to={item.path}
-                className={`flex items-center gap-4 p-2 rounded transition-all font-medium
-                  ${active
-                    ? "bg-yellow-500 text-white shadow-md"
-                    : "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800"
-                  }
-                `}
-              >
-                <Icon size={22} />
-                {isOpen && <span>{item.name}</span>}
-              </Link>
+              <div key={item.path} className="relative group">
+                <Link
+                  to={item.path}
+                  className={`flex items-center gap-4 p-2 rounded transition-all font-medium
+                    ${active
+                      ? "bg-gradient-to-r from-yellow-400 via-yellow-500 to-yellow-600 text-white shadow-md"
+                      : "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800"
+                    }
+                  `}
+                >
+                  <Icon size={22} />
+                  {isOpen && <span>{item.name}</span>}
+                </Link>
+
+                {/* Tooltip (only show when collapsed) */}
+                {!isOpen && (
+                  <div
+                    className="absolute left-full top-1/2 -translate-y-1/2 ml-3 
+                               bg-gradient-to-r from-yellow-400 via-yellow-500 to-yellow-600 
+                               text-white text-sm px-2 py-1 rounded-md shadow-lg 
+                               opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap
+                               z-50"
+                  >
+                    {item.name}
+                  </div>
+                )}
+              </div>
             );
           })}
         </nav>
