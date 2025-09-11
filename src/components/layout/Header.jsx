@@ -32,7 +32,7 @@ const Header = () => {
   ];
 
   return (
-    <header className="flex justify-between items-center px-4 sm:px-6 py-[14.6px] border-b  bg-white dark:bg-gray-900 sticky top-0 z-30">
+    <header className="flex justify-between items-center px-4 sm:px-6 py-[8.5px] border-b  bg-white dark:bg-gray-900 sticky top-0 z-30">
 
       {/* Left: Logo + Mobile Menu */}
       <div className="flex items-center gap-4">
@@ -52,25 +52,25 @@ const Header = () => {
       <nav className="hidden"></nav>
 
       {/* Right side */}
-      <div className="flex items-center gap-3 relative">
+      <div className="flex items-center lustify-center gap-4 relative">
         <ModeToggle />
 
-        <button className="relative p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800">
+        {/* <button className="relative p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800">
           <Bell className="w-5 h-5 text-gray-500 dark:text-gray-300" />
           <span className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full"></span>
-        </button>
+        </button> */}
 
         {user ? (
           <div className="relative">
             <button
               onClick={() => setOpen(!open)}
-              className="focus:outline-none rounded-full border-2 border-transparent hover:border-yellow-500 transition"
+              className="focus:outline-none rounded-full  transition"
             >
-              <Avatar className="h-[35.5px] w-[35.5px] ring-2 ring-yellow-400 shadow-md">
+              <Avatar className="h-[40px] w-[40px] ring-1 ring-gray-200 hover:ring-1 hover:ring-yellow-500   shadow-md mt-1">
                 <AvatarImage
-                  src={user.avatar}
+                  src="../public/images/avator.jpg"
                   alt={user.username}
-                  className="rounded-full object-cover"
+                  className="rounded-full object-cover h-full w-full"
                 />
                 <AvatarFallback className="bg-gradient-to-br from-yellow-400 via-yellow-500 to-orange-500 text-white font-semibold flex items-center justify-center">
                   {user.username?.charAt(0).toUpperCase()}
@@ -111,8 +111,8 @@ const Header = () => {
                 key={item.path}
                 to={item.path}
                 className={`block px-3 py-2 rounded ${pathname === item.path
-                    ? "bg-yellow-500 text-white"
-                    : "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800"
+                  ? "bg-yellow-500 text-white"
+                  : "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800"
                   }`}
                 onClick={() => setMenuOpen(false)}
               >
