@@ -68,7 +68,7 @@ const Header = () => {
             >
               <Avatar className="h-[40px] w-[40px] ring-1 ring-gray-200 hover:ring-1 hover:ring-yellow-500   shadow-md mt-1">
                 <AvatarImage
-                  src="../public/images/avator.jpg"
+                  src="/images/avator.jpg"
                   // alt={user.username}
                   className="rounded-full object-cover h-full w-full"
                 />
