@@ -10,7 +10,6 @@ const Login = () => {
     e.preventDefault();
 
     try {
-      // ✅ LocalStorage clear before new login
       const response = await fetch("https://retailm.pythonanywhere.com/api/token/", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -37,7 +36,7 @@ const Login = () => {
         localStorage.setItem("user", JSON.stringify({ username }));
 
         console.log("✅ Logged-in user:", username);
-        navigate("/"); // dashboard
+        navigate("/"); // redirect to dashboard
       } else {
         alert("Login failed!");
       }
@@ -92,15 +91,11 @@ const Login = () => {
 
         {/* Login Button */}
         <button
-          onClick={() => {
-            navigate("/login")
-          }}
           type="submit"
           className="w-full bg-yellow-500 hover:bg-yellow-600 text-white py-2 rounded-lg font-semibold transition duration-300"
         >
           Login
         </button>
-
       </form>
     </div>
   );
