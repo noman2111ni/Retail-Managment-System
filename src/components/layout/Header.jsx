@@ -69,7 +69,7 @@ const Header = () => {
               <Avatar className="h-[40px] w-[40px] ring-1 ring-gray-200 hover:ring-1 hover:ring-yellow-500   shadow-md mt-1">
                 <AvatarImage
                   src="../public/images/avator.jpg"
-                  alt={user.username}
+                  // alt={user.username}
                   className="rounded-full object-cover h-full w-full"
                 />
                 <AvatarFallback className="bg-gradient-to-br from-yellow-400 via-yellow-500 to-orange-500 text-white font-semibold flex items-center justify-center">
