@@ -92,12 +92,15 @@ const Login = () => {
 
         {/* Login Button */}
         <button
+          onClick={() => {
+            navigate("/login")
+          }}
           type="submit"
           className="w-full bg-yellow-500 hover:bg-yellow-600 text-white py-2 rounded-lg font-semibold transition duration-300"
         >
           Login
         </button>
-      
+
       </form>
     </div>
   );
