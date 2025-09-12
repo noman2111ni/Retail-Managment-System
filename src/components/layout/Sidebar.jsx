@@ -30,7 +30,7 @@ export default function Sidebar() {
   ];
 
   return (
-    <div className="relative">
+    <div className="sticky top-0 left-0 h-screen flex-shrink-0 z-50">
       {/* Sidebar */}
       <aside
         className={`bg-white dark:bg-gray-900 h-full dark:text-white text-gray-900 
@@ -86,7 +86,7 @@ export default function Sidebar() {
                                bg-gradient-to-r from-yellow-400 via-yellow-500 to-yellow-600 
                                text-white text-sm px-2 py-1 rounded-md shadow-lg 
                                opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap
-                               z-50"
+                               z-100"
                   >
                     {item.name}
                   </div>

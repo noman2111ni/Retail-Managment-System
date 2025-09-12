@@ -6,10 +6,11 @@ import { fetchBranches } from "../../../../store/slices/branchSlice";
 import { fetchnewProducts } from "../../../../store/newproductSlice";
 import { Loader2, Trash2 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { RxCross1 } from "react-icons/rx";
 
 const SaleForm = () => {
   const dispatch = useDispatch();
-  const  navigate = useNavigate();
+  const navigate = useNavigate();
   const { loading, error } = useSelector((state) => state.sales);
   const { data: branches = [] } = useSelector((state) => state.branches);
   const { data: products = [] } = useSelector((state) => state.newProducts);
@@ -107,16 +108,16 @@ const SaleForm = () => {
 
   return (
 
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-800 py-8">
-      <div className="w-full max-w-3xl mx-auto p-4 sm:p-6   ">
+    <div className="min-h-screen  dark:bg-gray-800 py-3">
+      <div className="w-full max-w-3xl mx-auto p-4 sm:p-6 ">
         <form
           onSubmit={handleSubmit}
-          className="space-y-6 bg-white dark:bg-gray-800 shadow-lg rounded-2xl p-6 transition-colors border border-gray-200 dark:border-gray-700"
+          className="relative space-y-6 bg-white dark:bg-gray-800 shadow-lg rounded-2xl p-6 transition-colors border border-gray-200 dark:border-gray-700"
         >
           <h2 className="text-2xl font-bold text-center text-gray-800 dark:text-white">
             🧾 Create Sale
           </h2>
-
+          <RxCross1 className=" absolute top-4 right-4 text-gray-500 dark:text-gray-400 cursor-pointer" onClick={() => navigate(-1)} />
           {/* Invoice & Branch */}
           <div className="grid sm:grid-cols-2 gap-4">
             <div>
@@ -222,16 +223,20 @@ const SaleForm = () => {
                 <button
                   type="button"
                   onClick={() => removeItem(index)}
-                  className="p-2 bg-red-500 hover:bg-red-600 text-white rounded flex justify-center"
+                  className="p-2 text-white rounded flex justify-center 
+             bg-gradient-to-r from-yellow-400 via-yellow-500 to-orange-500 
+             hover:from-yellow-500 hover:via-yellow-600 hover:to-orange-600"
                 >
                   <Trash2 size={16} />
                 </button>
+
               </div>
             ))}
             <button
               type="button"
               onClick={addItem}
-              className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded transition"
+              className="bg-gradient-to-r from-yellow-400 via-yellow-500 to-orange-500 
+             hover:from-yellow-500 hover:via-yellow-600 hover:to-orange-600 text-white px-4 py-2 rounded transition"
             >
               ➕ Add Item
             </button>
@@ -334,7 +339,8 @@ const SaleForm = () => {
             <button
               type="submit"
               disabled={loading}
-              className="bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded-lg shadow flex items-center justify-center transition"
+              className="bg-gradient-to-r from-yellow-400 via-yellow-500 to-orange-500 
+             hover:from-yellow-500 hover:via-yellow-600 hover:to-orange-600 text-white px-6 py-2 rounded-lg shadow flex items-center justify-center transition"
             >
               {loading ? <Loader2 className="animate-spin mr-2" size={18} /> : "💾 Save Sale"}
             </button>

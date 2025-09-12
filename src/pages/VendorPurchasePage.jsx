@@ -21,6 +21,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 
 export default function VendorTable({ onAddClick }) {
   const dispatch = useDispatch();
@@ -144,40 +145,55 @@ export default function VendorTable({ onAddClick }) {
 
       {/* Pagination */}
       {totalPages > 1 && (
-        <div className="flex justify-center items-center mt-6 gap-2">
+        <div className="flex justify-end   items-center mt-6 gap-2">
+          {/* Prev Button */}
           <Button
             variant="outline"
             size="sm"
             disabled={currentPage === 1}
             onClick={() => setCurrentPage(currentPage - 1)}
+            className="rounded-lg px-4 py-2 
+                 bg-gradient-to-r from-yellow-400 via-yellow-500 to-orange-500 
+                 text-white font-medium shadow-md 
+                 hover:from-yellow-500 hover:via-yellow-600 hover:to-orange-600
+                 disabled:opacity-40 disabled:cursor-not-allowed"
           >
-            Previous
+            <IoIosArrowBack />
           </Button>
 
+          {/* Page Numbers */}
           {[...Array(totalPages)].map((_, i) => (
             <Button
               key={i}
-              variant={currentPage === i + 1 ? "default" : "outline"}
               size="sm"
               onClick={() => setCurrentPage(i + 1)}
-              className={
-                currentPage === i + 1 ? "bg-yellow-500 text-white" : ""
-              }
+              className={`rounded-full w-9 h-9 font-medium shadow-md transition 
+          ${currentPage === i + 1
+                  ? "bg-gradient-to-r from-yellow-400 via-yellow-500 to-orange-500 text-white"
+                  : "bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-200 border border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700"
+                }`}
             >
               {i + 1}
             </Button>
           ))}
 
+          {/* Next Button */}
           <Button
             variant="outline"
             size="sm"
             disabled={currentPage === totalPages}
             onClick={() => setCurrentPage(currentPage + 1)}
+            className="rounded-lg px-4 py-2 
+                 bg-gradient-to-r from-yellow-400 via-yellow-500 to-orange-500 
+                 text-white font-medium shadow-md 
+                 hover:from-yellow-500 hover:via-yellow-600 hover:to-orange-600
+                 disabled:opacity-40 disabled:cursor-not-allowed"
           >
-            Next
+            <IoIosArrowForward />
           </Button>
         </div>
       )}
+
     </div>
   );
 }

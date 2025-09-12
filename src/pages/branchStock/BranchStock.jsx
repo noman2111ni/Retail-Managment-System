@@ -6,6 +6,7 @@ import {
     fetchStockMovements,
 } from "../../../store/slices/stockSlice";
 import { Search } from "lucide-react";
+import { MdDeleteForever } from "react-icons/md";
 import { RxCross1 } from "react-icons/rx";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 
@@ -121,7 +122,7 @@ export default function StockMovementsTable() {
                    text-gray-500 dark:text-gray-400 
                    hover:text-red-600 transition"
                                                     >
-                                                        <RxCross1 className="w-4 h-4" />
+                                                        <MdDeleteForever className="w-4 h-4" />
                                                     </button>
                                                 </TooltipTrigger>
                                                 <TooltipContent side="left" className="bg-red-600 text-white text-sm px-3 py-1 rounded-md shadow-md">

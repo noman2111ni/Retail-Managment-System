@@ -7,16 +7,16 @@ export const fetchAuditLogs = createAsyncThunk(
   async (_, { getState, rejectWithValue }) => {
     try {
       const state = getState();
+      const token = state.auth.accessToken;
       const response = await axios.get(
         "https://retailm.pythonanywhere.com/api/audit-logs/",
         {
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${state.auth.accessToken}`,
+            Authorization: `Bearer ${token}`,
           },
         }
       );
-
       // Ensure we always return an array
       if (Array.isArray(response.data)) {
         return response.data;
@@ -28,7 +28,9 @@ export const fetchAuditLogs = createAsyncThunk(
     } catch (err) {
       // Handle axios errors
       return rejectWithValue(
-        err.response?.data?.detail || err.message || "Failed to fetch audit logs"
+        err.response?.data?.detail ||
+          err.message ||
+          "Failed to fetch audit logs"
       );
     }
   }
@@ -58,7 +60,7 @@ const auditLogsSlice = createSlice({
         state.loading = false;
         state.logs = action.payload;
         console.log(action.payload);
-         // guaranteed to be an array
+        // guaranteed to be an array
       })
       .addCase(fetchAuditLogs.rejected, (state, action) => {
         state.loading = false;

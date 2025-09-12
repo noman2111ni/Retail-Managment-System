@@ -4,8 +4,6 @@ import POS from "@/components/layout/Products/POS";
 import Reports from "../pages/Reports";
 import Sidebar from "@/components/layout/Sidebar";
 import SalesPage from "@/components/layout/Sales/SalesPage";
-import OrdersPage from "./order/OrdersPage";
-import AddOrderPage from "./order/AddOrder";
 import BranchesComponent from "./branches/BranchesComponent";
 import AddBranches from "./branches/AddBranches";
 import Login from "./Login";
@@ -23,26 +21,20 @@ import LedgerTable from "@/components/layout/LedgerEntry/LedgerTable";
 import PurchasePage from "@/components/layout/Purchase/PurchasePage";
 function DashboardLayout() {
   return (
-    <div className="flex  h-full">
+    <div className="flex h-full">
       <Sidebar />
-      <main className="flex-1  overflow-y-auto">
+      <main className="flex-1 overflow-y-auto">
         <Header />
-
         <Routes>
           <Route path="/" element={<DashboardPage />} />
           <Route path="/pos" element={<POS />}>
-            <Route path="product-form" element={<ProductForm />} />
-            <Route path="add-branch" element={<AddBranches />} />
-
           </Route>
-
+          <Route path="add-branch" element={<AddBranches />} />
+          <Route path="product-form" element={<ProductForm />} />
           <Route path="updateproduct/:id" element={<ProductUpdate />} />
           <Route path="/sales" element={<SalesPage />} />
           <Route path="/saleFrom/:id" element={<SaleForm />} />
           <Route path="/purchases" element={<PurchasePage />} />
-          <Route path="orders" element={<OrdersPage />}>
-            <Route path="new" element={<AddOrderPage />} />
-          </Route>
           <Route path="/reports" element={<Reports />} />
           <Route path="/branches" element={<BranchesComponent />} />
           <Route path="/branches/update-branch/:id" element={<UpdateBranch />} />
@@ -55,7 +47,6 @@ function DashboardLayout() {
           <Route path="/ledger" element={<LedgerTable />} />
           <Route path="*" element={<div className="p-6">Page Not Found</div>} />
         </Routes>
-
       </main>
     </div>
   );

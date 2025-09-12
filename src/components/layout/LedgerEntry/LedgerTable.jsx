@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import { Delete } from "lucide-react";
 import { TiDeleteOutline } from "react-icons/ti";
+import { MdDeleteForever } from "react-icons/md";
 
 
 const LedgerTable = () => {
@@ -98,10 +99,10 @@ const LedgerTable = () => {
 
       {/* Responsive Table */}
       <div className="overflow-x-auto shadow-md rounded-lg border border-gray-200 dark:border-gray-700">
-        <table className="min-w-full border-collapse font-sans text-sm md:text-base">
-          <thead className="bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200 font-semibold">
+        <table className="min-w-full border-collapse   md:text-base">
+          <thead className=" dark:bg-gray-700 text-gray-800 dark:text-gray-200 text-sm">
             <tr>
-              <th className="border px-4 py-3 text-left whitespace-nowrap">Date</th>
+              <th className="border px-4 py-3 text-left ">Date</th>
               <th className="border px-4 py-3 text-left">Description</th>
               <th className="border px-4 py-3 text-left whitespace-nowrap">Transaction</th>
               <th className="border px-4 py-3 text-right whitespace-nowrap">Amount</th>
@@ -138,7 +139,7 @@ const LedgerTable = () => {
                 <td className="border px-4 py-2 truncate max-w-[160px]">{entry.reference}</td>
                 <td className="border px-4 py-2">{entry.created_by}</td>
                 <td className="border px-4 py-2">
-                  <TiDeleteOutline
+                  <MdDeleteForever
                     size={20}
                     className="text-red-500 hover:text-red-700 cursor-pointer"
                     title="Delete Entry"
@@ -152,29 +153,41 @@ const LedgerTable = () => {
       </div>
 
       {/* Pagination */}
-      <div className="flex flex-col sm:flex-row justify-between items-center gap-3 mt-4">
-        <span className="text-gray-700 dark:text-gray-200 text-sm">
-          Page {currentPage} of {totalPages || 1}
-        </span>
-        <div className="flex items-center gap-2">
+      <div className="flex flex-col sm:flex-row justify-between items-center gap-3 mt-6">
+        <div className="flex items-center justify-end w-full gap-3">
+          {/* Prev Button */}
           <button
             onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
-            className="p-2 rounded-lg bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 transition disabled:opacity-40"
+            className="p-2 rounded-xl text-white 
+                 bg-gradient-to-r from-yellow-400 via-yellow-500 to-orange-500 
+                 hover:from-yellow-500 hover:via-yellow-600 hover:to-orange-600
+                 shadow-md transition disabled:opacity-40 disabled:cursor-not-allowed"
             disabled={currentPage === 1}
           >
             <IoIosArrowBack />
           </button>
+
+          {/* Page Info */}
+          <span className="px-3 py-2 text-sm font-medium rounded-lg 
+                     bg-white dark:bg-gray-800 shadow-sm
+                     text-gray-800 dark:text-gray-200 border border-gray-200 dark:border-gray-700">
+            Page {currentPage} of {totalPages || 1}
+          </span>
+
+          {/* Next Button */}
           <button
-            onClick={() =>
-              setCurrentPage((prev) => Math.min(prev + 1, totalPages || 1))
-            }
-            className="p-2 rounded-lg bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 transition disabled:opacity-40"
+            onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages || 1))}
+            className="p-2 rounded-xl text-white 
+                 bg-gradient-to-r from-yellow-400 via-yellow-500 to-orange-500 
+                 hover:from-yellow-500 hover:via-yellow-600 hover:to-orange-600
+                 shadow-md transition disabled:opacity-40 disabled:cursor-not-allowed"
             disabled={currentPage === totalPages || totalPages === 0}
           >
             <IoIosArrowForward />
           </button>
         </div>
       </div>
+
     </div>
   );
 };

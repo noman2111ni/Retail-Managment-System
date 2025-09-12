@@ -68,26 +68,30 @@ const ProductForm = ({ product = null }) => {
   const crosshandle = () => navigate("/pos");
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center  backdrop-blur p-4">
-      <div className="w-full max-w-lg bg-white dark:bg-gray-900  shadow-xl relative overflow-y-auto overflow-x-hidden max-h-[90vh] p-8 scrollbar-none  border border-gray-200 dark:border-gray-700 p-4 rounded-lg">
+    <div className="flex justify-center p-2 sm:p-4 dark:bg-gray-900">
+      <div className="w-full max-w-lg bg-white dark:bg-gray-900 shadow-xl relative p-6 sm:p-8 border border-gray-200 dark:border-gray-700 rounded-lg scrollbar-none">
         <RxCross1
           onClick={crosshandle}
-          className="absolute top-5 right-5 text-gray-500 hover:text-gray-700 cursor-pointer transition"
+          className="absolute top-4 right-4 text-gray-500 hover:text-gray-700 cursor-pointer transition"
         />
-        <h2 className="text-2xl font-bold mb-6 text-center text-gray-900 dark:text-gray-100">
+
+        <h2 className="text-xl sm:text-3xl font-bold mb-6 text-center 
+  bg-gradient-to-r from-yellow-400 via-yellow-500 to-orange-500 
+  bg-clip-text text-transparent">
           {product ? "Edit Product" : "Add Product"}
         </h2>
 
+
         <form onSubmit={handleSubmit} className="grid gap-4">
           {/* Name & SKU */}
-          <div className="grid grid-cols-2 gap-2">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
             <input
               type="text"
               name="name"
               value={formData.name}
               onChange={handleChange}
               placeholder="Product Name"
-              className="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-amber-400 outline-none transition shadow-sm"
+              className="w-full px-3 py-2 sm:px-4 sm:py-2 border rounded-md focus:ring-2 focus:ring-amber-400 outline-none transition shadow-sm text-sm sm:text-base"
               required
             />
             <input
@@ -96,20 +100,20 @@ const ProductForm = ({ product = null }) => {
               value={formData.sku}
               onChange={handleChange}
               placeholder="SKU"
-              className="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-amber-400 outline-none transition shadow-sm"
+              className="w-full px-3 py-2 sm:px-4 sm:py-2 border rounded-md focus:ring-2 focus:ring-amber-400 outline-none transition shadow-sm text-sm sm:text-base"
               required
             />
           </div>
 
           {/* Price & Barcode */}
-          <div className="grid grid-cols-2 gap-2">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
             <input
               type="number"
               name="price"
               value={formData.price}
               onChange={handleChange}
               placeholder="Price"
-              className="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-amber-400 outline-none transition shadow-sm"
+              className="w-full px-3 py-2 border rounded-md focus:ring-2 focus:ring-amber-400 outline-none transition shadow-sm"
               required
             />
             <input
@@ -118,19 +122,19 @@ const ProductForm = ({ product = null }) => {
               value={formData.barcode}
               onChange={handleChange}
               placeholder="Barcode"
-              className="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-amber-400 outline-none transition shadow-sm"
+              className="w-full px-3 py-2 border rounded-md focus:ring-2 focus:ring-amber-400 outline-none transition shadow-sm"
             />
           </div>
 
           {/* Category & Brand */}
-          <div className="grid grid-cols-2 gap-2">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
             <input
               type="text"
               name="category"
               value={formData.category}
               onChange={handleChange}
               placeholder="Category"
-              className="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-amber-400 outline-none transition shadow-sm"
+              className="w-full px-3 py-2 border rounded-md focus:ring-2 focus:ring-amber-400 outline-none transition shadow-sm"
             />
             <input
               type="text"
@@ -138,7 +142,7 @@ const ProductForm = ({ product = null }) => {
               value={formData.brand}
               onChange={handleChange}
               placeholder="Brand"
-              className="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-amber-400 outline-none transition shadow-sm"
+              className="w-full px-3 py-2 border rounded-md focus:ring-2 focus:ring-amber-400 outline-none transition shadow-sm"
             />
           </div>
 
@@ -149,16 +153,21 @@ const ProductForm = ({ product = null }) => {
             value={formData.quantity}
             onChange={handleChange}
             placeholder="Quantity"
-            className="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-amber-400 outline-none transition shadow-sm"
+            className="w-full px-3 py-2 border rounded-md focus:ring-2 focus:ring-amber-400 outline-none transition shadow-sm"
           />
 
           {/* Branch Select */}
-          <div className="flex gap-2 items-center">
+          <div className="flex flex-col sm:flex-row gap-2 items-stretch sm:items-center">
             <select
               name="branch_id"
               value={formData.branch_id}
               onChange={handleChange}
-              className="flex-1 px-4 py-2 border rounded-md focus:ring-2 focus:ring-amber-400 outline-none transition shadow-sm"
+              className="flex-1 px-3 py-2 
+             border rounded-md 
+             bg-white text-gray-900 
+             dark:bg-gray-800 dark:text-gray-100 dark:border-gray-600
+             focus:ring-2 focus:ring-amber-400 
+             outline-none transition shadow-sm"
               required
             >
               <option value="">Select Branch</option>
@@ -168,8 +177,12 @@ const ProductForm = ({ product = null }) => {
                 </option>
               ))}
             </select>
-            <Link to="/pos/add-branch">
-              <button type="button" className="px-4 py-2 bg-amber-500 hover:bg-amber-600 text-white rounded-md transition shadow">
+
+            <Link to="/add-branch">
+              <button
+                type="button"
+                className="w-full sm:w-auto px-4 py-2 bg-gradient-to-r from-yellow-400 via-yellow-500 to-orange-500 text-white rounded-md transition shadow"
+              >
                 +
               </button>
             </Link>
@@ -181,7 +194,7 @@ const ProductForm = ({ product = null }) => {
             value={formData.description}
             onChange={handleChange}
             placeholder="Description"
-            className="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-amber-400 outline-none transition shadow-sm resize-none"
+            className="w-full px-3 py-2 border rounded-md focus:ring-2 focus:ring-amber-400 outline-none transition shadow-sm resize-none"
             rows={3}
           />
 
@@ -191,7 +204,7 @@ const ProductForm = ({ product = null }) => {
               <img
                 src={imagePreview}
                 alt="Preview"
-                className="h-32 w-32 object-cover rounded-md shadow-md"
+                className="h-28 w-28 sm:h-32 sm:w-32 object-cover rounded-md shadow-md"
               />
             )}
             <input
@@ -199,7 +212,7 @@ const ProductForm = ({ product = null }) => {
               name="image"
               accept="image/*"
               onChange={handleChange}
-              className="px-4 py-2 border rounded-md focus:ring-2 focus:ring-amber-400 outline-none transition shadow-sm"
+              className="px-3 py-2 border rounded-md focus:ring-2 focus:ring-amber-400 outline-none transition shadow-sm"
             />
           </div>
 
@@ -219,15 +232,21 @@ const ProductForm = ({ product = null }) => {
           <button
             type="submit"
             disabled={loading}
-            className="w-full py-3 mt-4 bg-amber-500 text-white rounded-md hover:bg-amber-600 transition shadow-md disabled:opacity-50"
+            className="w-full py-3 mt-4 
+             bg-gradient-to-r from-yellow-400 via-yellow-500 to-orange-500 
+             text-white rounded-md 
+             hover:opacity-90 transition shadow-md 
+             disabled:opacity-50"
           >
             {loading ? "Saving..." : product ? "Update" : "Add"} Product
           </button>
+
 
           {error && <p className="text-red-500 mt-2">{error}</p>}
         </form>
       </div>
     </div>
+
   );
 };
 

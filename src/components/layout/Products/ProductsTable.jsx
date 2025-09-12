@@ -98,7 +98,7 @@ const ProductsTable = () => {
           />
         </div>
         <div className="flex gap-3 items-center w-full sm:w-auto">
-          <Link to="product-form">
+          <Link to="/product-form">
             <button className="py-2 px-5 rounded text-sm font-semibold text-white bg-amber-400 hover:bg-amber-600 transition shadow-md">
               + Add
             </button>
@@ -289,13 +289,13 @@ const ProductsTable = () => {
 
       {/* Pagination Controls */}
       <div className="flex justify-end items-center gap-2 mt-4">
-        <button
+        <buttons
           onClick={() => setCurrentPage((p) => Math.max(p - 1, 1))}
           disabled={currentPage === 1}
           className="px-3 py-1 bg-gray-200 dark:bg-gray-700 rounded disabled:opacity-50"
         >
           <IoIosArrowBack />
-        </button>
+        </buttons>
 
         <span className="px-3 py-1 text-gray-700 dark:text-gray-200">
           Page {currentPage} of {totalPages || 1}

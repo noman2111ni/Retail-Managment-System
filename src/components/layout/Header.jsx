@@ -23,12 +23,13 @@ const Header = () => {
   const navItems = [
     { name: "Dashboard", path: "/" },
     { name: "POS", path: "/pos" },
-    { name: "Sales", path: "/sales" },
-    { name: "AuditLog", path: "/auditlog" },
     { name: "Branches", path: "/branches" },
-    { name: "Branch Stock", path: "/branch-stock" },
+    { name: "Sales", path: "/sales" },
+    { name: "Purchases", path: "/purchases" },
+    { name: "AuditLog", path: "/auditlog" },
     { name: "Vendors", path: "/vendors" },
     { name: "Ledger", path: "/ledger" },
+    { name: "Branch Stock", path: "/branch-stock" },
   ];
 
   return (

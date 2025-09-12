@@ -46,10 +46,10 @@ export default function Dashboard() {
   const lowStockCount = newproducts.filter((p) => p.quantity <= 4).length;
 
   return (
-    <div className="p-4 md:p-6 grid gap-6 min-h-screen dark:bg-gray-900">
+    <div className="p-4 md:p-6 grid gap-6 min-h-screen dark:bg-gray-900 z-0">
       {/* KPI Cards */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 md:gap-3">
-        <Card className="shadow-lg rounded-2xl bg-white/70 dark:bg-white/10 backdrop-blur-md border">
+        <Card className="shadow-lg rounded-2xl bg-white/70 dark:bg-white/0 backdrop-blur-md border">
           <CardContent className="flex items-center justify-between p-4 md:p-6">
             <div>
               <p className="text-gray-500 dark:text-gray-400   ">Total Products</p>
@@ -59,7 +59,7 @@ export default function Dashboard() {
           </CardContent>
         </Card>
 
-        <Card className="shadow-lg rounded-2xl bg-white/70 dark:bg-white/10 backdrop-blur-md border">
+        <Card className="shadow-lg rounded-2xl bg-white/70 dark:bg-white/0 backdrop-blur-md border">
           <CardContent className="flex items-center justify-between p-4 md:p-6">
             <div>
               <p className="text-gray-500 dark:text-gray-400">Total Sales</p>
@@ -71,7 +71,7 @@ export default function Dashboard() {
           </CardContent>
         </Card>
 
-        <Card className="shadow-lg rounded-2xl bg-white/70 dark:bg-white/10 backdrop-blur-md border">
+        <Card className="shadow-lg rounded-2xl bg-white/70 dark:bg-white/0 backdrop-blur-md border">
           <CardContent className="flex items-center justify-between p-4 md:p-6">
             <div>
               <p className="text-gray-500 dark:text-gray-400">Vendors</p>
@@ -80,7 +80,7 @@ export default function Dashboard() {
             <Users className="w-8 h-8 md:w-10 md:h-10 text-green-600" />
           </CardContent>
         </Card>
-        <Card className="shadow-lg rounded-2xl bg-white/70 dark:bg-white/10 backdrop-blur-md border">
+        <Card className="shadow-lg rounded-2xl bg-white/70 dark:bg-white/0 backdrop-blur-md border">
           <CardContent className="flex items-center justify-between p-4 md:p-6">
             <div>
               <p className="text-gray-500 dark:text-gray-400">Total Purchases</p>
@@ -91,7 +91,7 @@ export default function Dashboard() {
         </Card>
 
       </div>
-      <Card className="shadow-lg rounded-2xl bg-white/70 dark:bg-white/10 backdrop-blur-md border">
+      <Card className="shadow-lg rounded-2xl bg-white/70 dark:bg-white/0 backdrop-blur-md border">
         <CardContent className="flex items-center justify-between p-4 md:p-6">
           <div>
             <p className="text-gray-500 dark:text-gray-400">Low Stock</p>
@@ -112,7 +112,7 @@ export default function Dashboard() {
       {/* Recent Transactions */}
       <div className="grid grid-cols-1 lg:grid-cols-1 gap-6 mt-6">
         {/* Recent Sales */}
-        <Card className="shadow-lg rounded-2xl bg-white/70 dark:bg-white/10 backdrop-blur-md border">
+        <Card className="shadow-lg rounded-2xl bg-white/70 dark:bg-white/0 backdrop-blur-md border">
           <CardContent className="p-4 md:p-6">
             <h2 className="font-semibold mb-4 text-gray-900 dark:text-gray-100">Recent Sales</h2>
             <div className="overflow-x-auto">

@@ -67,7 +67,7 @@ const AuditLogsTable = () => {
   const uniqueActions = Array.from(new Set(logs.map((log) => log.action)));
 
   return (
-    <div className="p-6 min-h-screen bg-gray-50 dark:bg-gray-900 font-sans">
+    <div className="p-6 min-h-screen dark:bg-gray-900 ">
       <div className="max-w-7xl mx-auto">
         <div className="mb-6">
           <h1 className="text-4xl font-extrabold bg-gradient-to-r from-yellow-400 to-yellow-600 bg-clip-text text-transparent">
@@ -90,7 +90,7 @@ const AuditLogsTable = () => {
           <select
             value={actionFilter}
             onChange={(e) => setActionFilter(e.target.value)}
-            className="px-4 py-2 rounded border border-gray-300 dark:border-gray-700 focus:ring-2 focus:ring-yellow-400 outline-none"
+            className="px-4 py-2 rounded  border-gray-300 dark:border-gray-700 focus:ring-2 focus:ring-yellow-400 outline-none dark:bg-gray-800 dark:text-gray-200 dark:border-3"
           >
             <option value="">All Actions</option>
             {uniqueActions.map((act) => (
@@ -108,7 +108,7 @@ const AuditLogsTable = () => {
           <select
             value={pageSize}
             onChange={(e) => setPageSize(Number(e.target.value))}
-            className="px-4 py-2 rounded border border-gray-300 dark:border-gray-700 focus:ring-2 focus:ring-yellow-400 outline-none"
+            className="px-4 py-2 rounded border border-gray-300 dark:border-gray-700 focus:ring-2 focus:ring-yellow-400 outline-none dark:bg-gray-800 dark:text-gray-200 dark:border-3"
           >
             {[5, 10, 20, 50].map((size) => (
               <option key={size} value={size}>
@@ -157,11 +157,10 @@ const AuditLogsTable = () => {
                 paginatedLogs.map((log, idx) => (
                   <tr
                     key={log.id}
-                    className={`transition duration-200 ${
-                      idx % 2 === 0
+                    className={`transition duration-200 ${idx % 2 === 0
                         ? "bg-gray-50 dark:bg-gray-700/50"
                         : "bg-white dark:bg-gray-800"
-                    } hover:bg-yellow-100 dark:hover:bg-gray-600/30`}
+                      } hover:bg-yellow-100 dark:hover:bg-gray-600/30`}
                   >
                     <td className="px-6 py-4">{log.id}</td>
                     <td className="px-6 py-4 font-medium text-gray-800 dark:text-gray-200">
@@ -182,15 +181,14 @@ const AuditLogsTable = () => {
         </div>
 
         {/* Pagination Controls */}
-        <div className="flex justify-between items-center mt-4 text-sm text-gray-700 dark:text-gray-300">
+        <div className="flex justify-between items-center mt-4  text-gray-700 dark:text-gray-300">
           <button
             disabled={currentPage === 1}
             onClick={() => setCurrentPage((p) => Math.max(p - 1, 1))}
-            className={`px-3 py-1 rounded border ${
-              currentPage === 1
+            className={`px-3 py-1 rounded border ${currentPage === 1
                 ? "bg-gray-200 dark:bg-gray-700 cursor-not-allowed"
                 : "bg-yellow-500 hover:bg-yellow-600 text-white"
-            }`}
+              }`}
           >
             Previous
           </button>
@@ -200,11 +198,10 @@ const AuditLogsTable = () => {
           <button
             disabled={currentPage === totalPages}
             onClick={() => setCurrentPage((p) => Math.min(p + 1, totalPages))}
-            className={`px-3 py-1 rounded border ${
-              currentPage === totalPages
+            className={`px-3 py-1 rounded border ${currentPage === totalPages
                 ? "bg-gray-200 dark:bg-gray-700 cursor-not-allowed"
                 : "bg-yellow-500 hover:bg-yellow-600 text-white"
-            }`}
+              }`}
           >
             Next
           </button>

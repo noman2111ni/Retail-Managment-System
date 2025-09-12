@@ -4,6 +4,7 @@ import { fetchPurchases, deletePurchase } from "../../../../store/slices/purchas
 import { RxCross1 } from "react-icons/rx";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { FaBoxOpen } from "react-icons/fa";
+import { MdDeleteForever } from "react-icons/md";
 
 const PurchasePage = () => {
   const dispatch = useDispatch();
@@ -25,8 +26,8 @@ const PurchasePage = () => {
   return (
     <div className="p-6 min-h-screen dark:bg-gray-900">
       {/* Header */}
-      <div className="flex justify-between items-center mb-6">
-        <h2 className="text-xl md:text-3xl font-bold mb-6 
+      <div className="flex justify-between items-center mb-8">
+        <h2 className="text-xl md:text-3xl font-bold mb-
                        bg-gradient-to-r from-yellow-400 via-yellow-500 to-yellow-600 
                        bg-clip-text text-transparent flex items-center gap-4">
           <FaBoxOpen className="text-yellow-400" /> <span>Purchase Records</span>
@@ -55,7 +56,7 @@ const PurchasePage = () => {
                                text-gray-500 dark:text-gray-400 
                                hover:text-red-600 transition"
                   >
-                    <RxCross1 className="w-4 h-4" />
+                   <MdDeleteForever className="w-4 h-4" />
                   </button>
                 </TooltipTrigger>
                 <TooltipContent side="left" className="bg-red-600 text-white text-sm px-3 py-1 rounded-md shadow-md">

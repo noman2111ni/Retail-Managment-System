@@ -59,7 +59,7 @@ export default function SalesPurchasesChart() {
     };
 
     return (
-        <Card className="shadow-xl h-[450px] rounded-xl bg-white/70 dark:bg-gray-800/50 backdrop-blur-md border border-gray-200 dark:border-gray-700">
+        <Card className="shadow-xl h-[450px] rounded-xl bg-white/70 dark:bg-gray-800/0 backdrop-blur-md border border-gray-200 dark:border-gray-700">
             <CardContent className="p-4 md:p-6">
                 <h2 className="font-bold text-xl md:text-xl mb-4 text-gray-900 dark:text-gray-100">
                     Sales & Purchases by Category
