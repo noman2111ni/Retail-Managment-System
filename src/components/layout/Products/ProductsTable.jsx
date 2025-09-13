@@ -10,8 +10,10 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { AlertDialog, AlertDialogTrigger, AlertDialogContent, AlertDialogHeader, AlertDialogTitle, AlertDialogDescription, AlertDialogFooter, AlertDialogCancel, AlertDialogAction } from "@/components/ui/alert-dialog";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import { FaSalesforce } from "react-icons/fa";
+import { toast } from "react-toastify";
 
 const ProductsTable = () => {
   const dispatch = useDispatch();
@@ -25,6 +27,8 @@ const ProductsTable = () => {
   const [selectedProducts, setSelectedProducts] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(10);
+
+  const [deleteTarget, setDeleteTarget] = useState(null); // product ya multiple delete ke liye
 
   useEffect(() => {
     dispatch(fetchnewProducts());
@@ -84,6 +88,18 @@ const ProductsTable = () => {
     setCurrentPage(1);
   }, [search, sortField, sortOrder]);
 
+  const confirmDelete = () => {
+    if (deleteTarget === "bulk") {
+      selectedProducts.forEach((id) => dispatch(deletenewProduct(id)));
+      setSelectedProducts([]);
+      toast.success("Selected products deleted");
+    } else if (typeof deleteTarget === "number") {
+      dispatch(deletenewProduct(deleteTarget));
+      toast.success("Product deleted");
+    }
+    setDeleteTarget(null);
+  };
+
   return (
     <div className="p-4 sm:p-6 dark:bg-gray-900 min-h-screen font-nunito">
       {/* Top Bar */}
@@ -110,21 +126,28 @@ const ProductsTable = () => {
             </button>
           </Link>
           {selectedProducts.length > 0 && (
-            <button
-              className="py-2 px-4 rounded text-sm font-semibold text-white bg-red-500 hover:bg-red-600 transition shadow-md"
-              onClick={() => {
-                if (
-                  window.confirm(`Delete ${selectedProducts.length} products?`)
-                ) {
-                  selectedProducts.forEach((id) =>
-                    dispatch(deletenewProduct(id))
-                  );
-                  setSelectedProducts([]);
-                }
-              }}
-            >
-              Delete Selected ({selectedProducts.length})
-            </button>
+            <AlertDialog>
+              <AlertDialogTrigger asChild>
+                <button
+                  className="py-2 px-4 rounded text-sm font-semibold text-white bg-red-500 hover:bg-red-600 transition shadow-md"
+                  onClick={() => setDeleteTarget("bulk")}
+                >
+                  Delete Selected ({selectedProducts.length})
+                </button>
+              </AlertDialogTrigger>
+              <AlertDialogContent>
+                <AlertDialogHeader>
+                  <AlertDialogTitle>Delete Selected Products?</AlertDialogTitle>
+                  <AlertDialogDescription>
+                    This will permanently delete {selectedProducts.length} products.
+                  </AlertDialogDescription>
+                </AlertDialogHeader>
+                <AlertDialogFooter>
+                  <AlertDialogCancel onClick={() => setDeleteTarget(null)}>Cancel</AlertDialogCancel>
+                  <AlertDialogAction onClick={confirmDelete}>Confirm Delete</AlertDialogAction>
+                </AlertDialogFooter>
+              </AlertDialogContent>
+            </AlertDialog>
           )}
         </div>
       </div>
@@ -166,11 +189,10 @@ const ProductsTable = () => {
                       ? handleSort(col.key)
                       : null
                   }
-                  className={`px-4 py-3 text-left font-semibold ${
-                    col.key !== "actions" && col.key !== "image"
-                      ? "cursor-pointer"
-                      : ""
-                  }`}
+                  className={`px-4 py-3 text-left font-semibold ${col.key !== "actions" && col.key !== "image"
+                    ? "cursor-pointer"
+                    : ""
+                    }`}
                 >
                   <div className="flex items-center gap-1">
                     {col.label}
@@ -187,13 +209,12 @@ const ProductsTable = () => {
             {paginatedProducts.map((product) => (
               <tr
                 key={product.id}
-                className={`transition ${
-                  selectedProducts.includes(product.id)
-                    ? "bg-amber-100 dark:bg-amber-900"
-                    : product.quantity <= 4
-                    ? "bg-red-100 dark:bg-red-900" // ✅ Low stock row highlight
+                className={`transition ${selectedProducts.includes(product.id)
+                  ? "bg-amber-100 dark:bg-amber-900"
+                  : product.quantity <= 4
+                    ? "bg-red-100 dark:bg-red-900"
                     : "hover:bg-gray-50 dark:hover:bg-gray-700"
-                }`}
+                  }`}
               >
                 <td className="px-4 py-3">
                   <input
@@ -214,8 +235,6 @@ const ProductsTable = () => {
                 </td>
                 <td className="px-4 py-3">{product.category || "General"}</td>
                 <td className="px-4 py-3">Rs. {product.price}</td>
-
-                {/* ✅ Quantity with Low Stock Badge */}
                 <td className="px-4 py-3 text-center">
                   {product.quantity <= 4 ? (
                     <span className="px-2 py-1 text-xs font-semibold text-red-700 bg-red-100 rounded">
@@ -225,7 +244,6 @@ const ProductsTable = () => {
                     product.quantity
                   )}
                 </td>
-
                 <td className="px-4 py-3 font-semibold text-green-600 dark:text-green-400">
                   Rs. {product.price * product.quantity || product.price}
                 </td>
@@ -233,11 +251,10 @@ const ProductsTable = () => {
                 <td className="px-4 py-3">
                   <span
                     className={`inline-flex items-center gap-1 px-3 py-1 text-xs font-medium rounded-full
-      ${
-        product.is_active
-          ? "bg-green-50 text-green-800 dark:bg-green-900 dark:text-green-300"
-          : "bg-gray-100 text-gray-600 dark:bg-gray-800 dark:text-gray-400"
-      }`}
+      ${product.is_active
+                        ? "bg-green-50 text-green-800 dark:bg-green-900 dark:text-green-300"
+                        : "bg-gray-100 text-gray-600 dark:bg-gray-800 dark:text-gray-400"
+                      }`}
                   >
                     {product.is_active ? <CheckCircle size={14} /> : <XCircle size={14} />}
                     {product.is_active ? "Active" : "Inactive"}
@@ -257,16 +274,33 @@ const ProductsTable = () => {
                         </DropdownMenuItem>
                       </Link>
 
-                      <DropdownMenuItem
-                        className="text-red-600 focus:text-red-600"
-                        onClick={() => {
-                          if (window.confirm("Delete this product?")) {
-                            dispatch(deletenewProduct(product.id));
-                          }
-                        }}
-                      >
-                        <Trash2 className="h-4 w-4 mr-2" /> Delete
-                      </DropdownMenuItem>
+                      <AlertDialog>
+                        <AlertDialogTrigger asChild>
+                          <button className="text-red-600 flex justify-start items-center mr-2 gap-3 text-sm p-2 hover:bg-gray-100 w-full rounded"> <span><Trash2 className="w-4 h-4 " /></span> Delete</button>
+                        </AlertDialogTrigger>
+
+                        <AlertDialogContent>
+                          <AlertDialogHeader>
+                            <AlertDialogTitle>Are you sure?</AlertDialogTitle>
+                            <AlertDialogDescription>
+                              This action cannot be undone. Product will be permanently deleted.
+                            </AlertDialogDescription>
+                          </AlertDialogHeader>
+                          <AlertDialogFooter>
+                            <AlertDialogCancel>Cancel</AlertDialogCancel>
+                            <AlertDialogAction
+                              className="bg-red-600 text-white hover:bg-red-700"
+                              onClick={() => {
+                                toast.info("Product Deleted");
+                                dispatch(deletenewProduct(product.id));
+                              }}
+                            >
+                              Confirm Delete
+                            </AlertDialogAction>
+                          </AlertDialogFooter>
+                        </AlertDialogContent>
+                      </AlertDialog>
+
                     </DropdownMenuContent>
                   </DropdownMenu>
                 </td>
@@ -289,13 +323,13 @@ const ProductsTable = () => {
 
       {/* Pagination Controls */}
       <div className="flex justify-end items-center gap-2 mt-4">
-        <buttons
+        <button
           onClick={() => setCurrentPage((p) => Math.max(p - 1, 1))}
           disabled={currentPage === 1}
           className="px-3 py-1 bg-gray-200 dark:bg-gray-700 rounded disabled:opacity-50"
         >
           <IoIosArrowBack />
-        </buttons>
+        </button>
 
         <span className="px-3 py-1 text-gray-700 dark:text-gray-200">
           Page {currentPage} of {totalPages || 1}

@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchBranches } from "../../../../store/slices/branchSlice";
 import { addnewProduct } from "../../../../store/newproductSlice";
+import { toast } from "react-toastify";
 
 const ProductForm = ({ product = null }) => {
   const navigate = useNavigate();
@@ -58,7 +59,7 @@ const ProductForm = ({ product = null }) => {
       }
 
       await dispatch(addnewProduct(data)).unwrap();
-      alert("Product saved successfully!");
+      toast.success("Add Product Successfully");
       navigate("/pos");
     } catch (err) {
       alert("Failed to save product: " + err);
