@@ -19,10 +19,8 @@ const Login = () => {
         }),
       });
 
-      console.log("Login status:", response.status);
       const data = await response.json();
-      console.log("Login response data:", data);
-
+      console.log(data);
       if (!response.ok) {
         alert(data.detail || "Login failed!");
         return;

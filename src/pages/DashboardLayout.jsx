@@ -1,4 +1,4 @@
-import { Routes, Route, Router } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import DashboardPage from "./DashboardPage";
 import POS from "@/components/layout/Products/POS";
 import Reports from "../pages/Reports";
@@ -19,6 +19,8 @@ import AddVendor from "@/components/layout/vendors/AddVendor";
 import PurchaseForm from "@/components/layout/vendors/PurchaseForm";
 import LedgerTable from "@/components/layout/LedgerEntry/LedgerTable";
 import PurchasePage from "@/components/layout/Purchase/PurchasePage";
+import ProtectedRoute from "./ProtectedRoute"; // 👈 import it
+
 function DashboardLayout() {
   return (
     <div className="flex h-full">
@@ -26,29 +28,41 @@ function DashboardLayout() {
       <main className="flex-1 overflow-y-auto">
         <Header />
         <Routes>
-          <Route path="/" element={<DashboardPage />} />
-          <Route path="/pos" element={<POS />}>
-          </Route>
-          <Route path="add-branch" element={<AddBranches />} />
-          <Route path="product-form" element={<ProductForm />} />
-          <Route path="updateproduct/:id" element={<ProductUpdate />} />
-          <Route path="/sales" element={<SalesPage />} />
-          <Route path="/saleFrom/:id" element={<SaleForm />} />
-          <Route path="/purchases" element={<PurchasePage />} />
-          <Route path="/reports" element={<Reports />} />
-          <Route path="/branches" element={<BranchesComponent />} />
-          <Route path="/branches/update-branch/:id" element={<UpdateBranch />} />
+          {/* Public Route */}
           <Route path="/login" element={<Login />} />
-          <Route path="/auditlog" element={<AuditLogsTable />} />
-          <Route path="/branch-stock" element={<BranchStock />} />
-          <Route path="/vendors" element={<VendorPurchasePage />} />
-          <Route path="/vendors-add" element={<AddVendor />} />
-          <Route path="/vendor-purchases/:vendorId" element={<PurchaseForm />} />
-          <Route path="/ledger" element={<LedgerTable />} />
-          <Route path="*" element={<div className="p-6">Page Not Found</div>} />
+
+          {/* Protected Routes */}
+          <Route
+            path="/*"
+            element={
+              <ProtectedRoute>
+                <Routes>
+                  <Route path="/" element={<DashboardPage />} />
+                  <Route path="/pos" element={<POS />} />
+                  <Route path="add-branch" element={<AddBranches />} />
+                  <Route path="product-form" element={<ProductForm />} />
+                  <Route path="updateproduct/:id" element={<ProductUpdate />} />
+                  <Route path="/sales" element={<SalesPage />} />
+                  <Route path="/saleFrom/:id" element={<SaleForm />} />
+                  <Route path="/purchases" element={<PurchasePage />} />
+                  <Route path="/reports" element={<Reports />} />
+                  <Route path="/branches" element={<BranchesComponent />} />
+                  <Route path="/branches/update-branch/:id" element={<UpdateBranch />} />
+                  <Route path="/auditlog" element={<AuditLogsTable />} />
+                  <Route path="/branch-stock" element={<BranchStock />} />
+                  <Route path="/vendors" element={<VendorPurchasePage />} />
+                  <Route path="/vendors-add" element={<AddVendor />} />
+                  <Route path="/vendor-purchases/:vendorId" element={<PurchaseForm />} />
+                  <Route path="/ledger" element={<LedgerTable />} />
+                  <Route path="*" element={<div className="p-6">Page Not Found</div>} />
+                </Routes>
+              </ProtectedRoute>
+            }
+          />
         </Routes>
       </main>
     </div>
   );
 }
+
 export default DashboardLayout;

@@ -1,10 +1,9 @@
 import React from "react";
 import { Navigate } from "react-router-dom";
-import { useSelector } from "react-redux";
 
 const ProtectedRoute = ({ children }) => {
-  const isLoggedIn = useSelector((state) => !!state.auth.access);
-  return isLoggedIn ? children : <Navigate to="/login" />;
+  const token = localStorage.getItem("accessToken"); // 👈 localStorage से token check करो
+  return token ? children : <Navigate to="/login" />;
 };
 
 export default ProtectedRoute;

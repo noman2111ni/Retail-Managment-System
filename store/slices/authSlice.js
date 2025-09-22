@@ -6,15 +6,13 @@ const API_REGISTER = "https://retailm.pythonanywhere.com/api/register/";
 const API_CURRENT_USER =
   "https://retailm.pythonanywhere.com/admin/api/customuser/?role__exact=admin";
 
-// Login Thunk
-console.log(API_CURRENT_USER);
-
 export const loginUser = createAsyncThunk(
   "auth/loginUser",
   async ({ username, password }, { rejectWithValue, dispatch }) => {
     try {
       // 1️⃣ Login and get tokens
       const response = await axios.post(API_LOGIN, { username, password });
+      console.log(response);
       const { access, refresh } = response.data;
 
       dispatch(setTokens({ access, refresh }));
@@ -91,6 +89,7 @@ const authSlice = createSlice({
       .addCase(loginUser.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload.detail || action.payload;
+        console.log(action.payload.detail);
       })
       // register
       .addCase(registerUser.pending, (state) => {
