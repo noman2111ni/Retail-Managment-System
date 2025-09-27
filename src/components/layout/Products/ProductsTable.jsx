@@ -34,7 +34,6 @@ const ProductsTable = () => {
   useEffect(() => {
     dispatch(fetchnewProducts());
   }, [dispatch]);
-  console.log(newproducts);
 
   const handleSort = (field) => {
     if (sortField === field) {

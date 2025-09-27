@@ -59,7 +59,6 @@ const auditLogsSlice = createSlice({
       .addCase(fetchAuditLogs.fulfilled, (state, action) => {
         state.loading = false;
         state.logs = action.payload;
-        console.log(action.payload);
         // guaranteed to be an array
       })
       .addCase(fetchAuditLogs.rejected, (state, action) => {

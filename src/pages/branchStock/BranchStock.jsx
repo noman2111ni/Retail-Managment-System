@@ -70,15 +70,6 @@ export default function StockMovementsTable() {
         );
     };
 
-    const toggleSelectAll = () => {
-        if (selectedMovements.length === paginatedData.length) {
-            setSelectedMovements([]);
-        } else {
-            setSelectedMovements(paginatedData.map((mov) => mov.id));
-        }
-    };
-
-    // Individual delete
     const confirmDelete = async () => {
         if (deleteTarget) {
             await dispatch(deleteStockMovement(deleteTarget));
