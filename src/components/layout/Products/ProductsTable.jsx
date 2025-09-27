@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { deletenewProduct, fetchnewProducts } from "../../../../store/newproductSlice";
 import { Link, Outlet } from "react-router-dom";
 import { CheckCircle, XCircle } from "lucide-react";
+import { IoEyeSharp } from "react-icons/io5";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -33,6 +34,7 @@ const ProductsTable = () => {
   useEffect(() => {
     dispatch(fetchnewProducts());
   }, [dispatch]);
+  console.log(newproducts);
 
   const handleSort = (field) => {
     if (sortField === field) {
@@ -204,7 +206,6 @@ const ProductsTable = () => {
               ))}
             </tr>
           </thead>
-
           <tbody className="text-sm divide-y divide-gray-200 dark:divide-gray-700">
             {paginatedProducts.map((product) => (
               <tr
@@ -271,6 +272,11 @@ const ProductsTable = () => {
                       <Link to={`/updateproduct/${product.id}`}>
                         <DropdownMenuItem>
                           <Edit2 className="h-4 w-4 mr-2" /> Edit
+                        </DropdownMenuItem>
+                      </Link>
+                      <Link to={`/SingleProView/${product.id}`}>
+                        <DropdownMenuItem>
+                          <IoEyeSharp className="h-4 w-4 mr-2" /> View
                         </DropdownMenuItem>
                       </Link>
 

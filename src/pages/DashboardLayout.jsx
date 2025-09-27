@@ -19,6 +19,7 @@ import AddVendor from "@/components/layout/vendors/AddVendor";
 import PurchaseForm from "@/components/layout/vendors/PurchaseForm";
 import LedgerTable from "@/components/layout/LedgerEntry/LedgerTable";
 import PurchasePage from "@/components/layout/Purchase/PurchasePage";
+import DetailSinglepro from "@/components/layout/Products/DetailSinglepro";
 function DashboardLayout() {
   return (
     <div className="flex h-full">
@@ -32,6 +33,7 @@ function DashboardLayout() {
           <Route path="add-branch" element={<AddBranches />} />
           <Route path="product-form" element={<ProductForm />} />
           <Route path="updateproduct/:id" element={<ProductUpdate />} />
+          <Route path="SingleProView/:id" element={<DetailSinglepro />} />
           <Route path="/sales" element={<SalesPage />} />
           <Route path="/saleFrom/:id" element={<SaleForm />} />
           <Route path="/purchases" element={<PurchasePage />} />

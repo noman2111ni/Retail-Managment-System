@@ -45,57 +45,58 @@ const Login = () => {
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gradient-to-r from-yellow-100 to-yellow-100">
-      <form
-        onSubmit={handleLogin}
-        className="bg-white p-8 rounded-2xl shadow-2xl w-96 space-y-6"
-      >
-        <h2 className="text-3xl font-bold text-center text-yellow-700">
-          Welcome Back 👋
-        </h2>
-        <p className="text-gray-500 text-center">
-          Login to continue to your dashboard
-        </p>
+    <div className="flex justify-center items-center min-h-screen bg-gradient-to-r from-yellow-100 via-yellow-200 to-yellow-300">
+  <form
+    onSubmit={handleLogin}
+    className="bg-white p-8 rounded-2xl shadow-xl w-96 space-y-6 border border-gray-200"
+  >
+    <h2 className="text-3xl font-bold text-center text-yellow-800">
+      Welcome Back 👋
+    </h2>
+    <p className="text-gray-500 text-center">
+      Login to continue to your dashboard
+    </p>
 
-        {/* Username */}
-        <div>
-          <label className="block text-sm font-medium text-gray-700">
-            Username
-          </label>
-          <input
-            type="text"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            placeholder="Enter username"
-            required
-            className="mt-1 text-gray-600 border border-gray-300 p-2 rounded-lg w-full focus:ring-2 focus:ring-yellow-400 outline-none"
-          />
-        </div>
-
-        {/* Password */}
-        <div>
-          <label className="block text-sm font-medium text-gray-700">
-            Password
-          </label>
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            placeholder="Enter password"
-            required
-            className="mt-1 border text-gray-600 border-gray-300 p-2 rounded-lg w-full focus:ring-2 focus:ring-yellow-400 outline-none"
-          />
-        </div>
-
-        {/* Login Button */}
-        <button
-          type="submit"
-          className="w-full bg-yellow-500 hover:bg-yellow-600 text-white py-2 rounded-lg font-semibold transition duration-300"
-        >
-          Login
-        </button>
-      </form>
+    {/* Username */}
+    <div>
+      <label className="block text-sm font-medium text-gray-700">
+        Username
+      </label>
+      <input
+        type="text"
+        value={username}
+        onChange={(e) => setUsername(e.target.value)}
+        placeholder="Enter username"
+        required
+        className="mt-1 text-gray-600 border border-gray-300 p-2 rounded-lg w-full focus:ring-2 focus:ring-yellow-400 outline-none"
+      />
     </div>
+
+    {/* Password */}
+    <div>
+      <label className="block text-sm font-medium text-gray-700">
+        Password
+      </label>
+      <input
+        type="password"
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+        placeholder="Enter password"
+        required
+        className="mt-1 border text-gray-600 border-gray-300 p-2 rounded-lg w-full focus:ring-2 focus:ring-yellow-400 outline-none"
+      />
+    </div>
+
+    {/* Login Button */}
+    <button
+      type="submit"
+      className="w-full bg-yellow-500 hover:bg-yellow-600 text-white py-2 rounded-lg font-semibold transition duration-300"
+    >
+      Login
+    </button>
+  </form>
+</div>
+
   );
 };
 
