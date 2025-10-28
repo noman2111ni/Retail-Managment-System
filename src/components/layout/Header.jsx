@@ -12,6 +12,7 @@ const Header = () => {
   // LocalStorage se user read
   const storedUser = JSON.parse(localStorage.getItem("user"));
   const [user] = useState(storedUser);
+  console.log(user);
 
   const handleLogout = () => {
     localStorage.removeItem("user");

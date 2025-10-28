@@ -23,6 +23,7 @@ export const loginUser = createAsyncThunk(
       });
 
       dispatch(setUser(userResponse.data));
+      console.log(userResponse.data);
       return { access, refresh, user: userResponse.data };
     } catch (err) {
       return rejectWithValue(err.response?.data || "Login failed");
